@@ -28,7 +28,19 @@ class MASLW_Widget extends WP_Widget {
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 		}
-		echo esc_html__( $instance['description'], 'maslw_domain' );
+		$description = esc_html($instance['description'], 'maslw_domain');
+		$iosLink = esc_url($instance['iosLink'], 'maslw_domain');
+		$iosImage = esc_url($instance['iosImage'], 'maslw_domain');
+		$androidLink = esc_url($instance['androidLink'], 'maslw_domain');
+		$androidImage = esc_url($instance['androidImage'], 'maslw_domain');
+		echo "<div>"; // wrapper start
+		echo "<p>{$description}</p>";
+		// echo esc_html('<\br>');
+		echo '<div class="links-container">';
+		echo '<a href="' . $iosLink . '" target="_blank"' . '>' . '<img src="'. $iosImage .'"/>' . '</a>';
+		echo '<a href="' . $androidLink . '" target="_blank"' . '>' . '<img src="'. $androidImage .'"/>' . '</a>';
+		echo "</div>";
+		echo "</div>"; // wrapper end
 		echo $args['after_widget'];
 	}
 
@@ -43,7 +55,9 @@ class MASLW_Widget extends WP_Widget {
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Mobile App Store Links', 'maslw_domain' );
 		$description = ! empty( $instance['description'] ) ? $instance['description'] : esc_html__( '', 'maslw_domain' );
 		$iosLink = ! empty( $instance['iosLink'] ) ? $instance['iosLink'] : esc_url( '', 'maslw_domain' );
+		$iosImage = ! empty( $instance['iosImage'] ) ? $instance['iosImage'] :  esc_url( '', 'maslw_domain' );
 		$androidLink = ! empty( $instance['androidLink'] ) ? $instance['androidLink'] : esc_url( '', 'maslw_domain' );
+		$androidImage = ! empty( $instance['androidImage'] ) ? $instance['androidImage'] : esc_url( '', 'maslw_domain' );
 		?>
 
 		<p>
@@ -59,8 +73,18 @@ class MASLW_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'iosLink' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'iosLink' ) ); ?>" type="url" value="<?php echo esc_attr( $iosLink ); ?>">
 		</p>
 		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'iosImage' ) ); ?>"><?php esc_attr_e( 'App Store Link Image:', 'maslw_domain' ); ?></label>
+			<input class="widefat media-upload" id="<?php echo esc_attr( $this->get_field_id( 'iosImage' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'iosImage' ) ); ?>" type="url" value="<?php echo esc_url( $iosImage ); ?>">
+			<button type="button" class="button button-primary media-upload-button">Select Image</button>
+		</p>
+		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'androidLink' ) ); ?>"><?php esc_attr_e( 'Google Play Link:', 'maslw_domain' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'androidLink' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'androidLink' ) ); ?>" type="url" value="<?php echo esc_attr( $androidLink ); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'androidImage' ) ); ?>"><?php esc_attr_e( 'Google Play Link Image:', 'maslw_domain' ); ?></label>
+			<input class="widefat media-upload" id="<?php echo esc_attr( $this->get_field_id( 'androidImage' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'androidImage' ) ); ?>" type="url" value="<?php echo esc_url( $androidImage ); ?>">
+			<button type="button" class="button button-primary media-upload-button">Select Image</button>
 		</p>
 		<?php
 	}
@@ -80,7 +104,9 @@ class MASLW_Widget extends WP_Widget {
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';
 		$instance['description'] = ( ! empty( $new_instance['description'] ) ) ? sanitize_text_field( $new_instance['description'] ) : '';
 		$instance['iosLink'] = ( ! empty( $new_instance['iosLink'] ) ) ? esc_url_raw( $new_instance['iosLink'] ) : '';
+		$instance['iosImage'] = ( ! empty( $new_instance['iosImage'] ) ) ? esc_url_raw( $new_instance['iosImage'] ) : '';
 		$instance['androidLink'] = ( ! empty( $new_instance['androidLink'] ) ) ? esc_url_raw( $new_instance['androidLink'] ) : '';
+		$instance['androidImage'] = ( ! empty( $new_instance['androidImage'] ) ) ? esc_url_raw( $new_instance['androidImage'] ) : '';
 
 		return $instance;
 	}

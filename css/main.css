@@ -1,0 +1,25 @@
+.widget_maslw_widget .links-container{
+	display: inline-flex;
+	grid-gap: 12px;
+	margin-top: 12px;
+}
+
+.widget_maslw_widget .links-container > a{
+	width: 50%;
+	display: grid-item;
+}
+
+[dir='rtl'] .widget_maslw_widget .links-container > a:first-child{
+	margin-left: 12px;
+}
+
+[dir='ltr'] .widget_maslw_widget .links-container > a:first-child{
+	margin-right: 12px;
+}
+
+/*@media screen and (max-width: 640px){
+	.widget_maslw_widget .links-container{
+		flex-direction: column;
+	}
+}
+*/
